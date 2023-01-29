@@ -2,8 +2,8 @@
 
 namespace QFire.Abstraction.Core
 {
-    public interface IQFire
+    public interface IQFire<T> where T : QFireMessage
     {
-        void Produce(IQFireMessage message, Priority isHighPriority = Priority.Low);
+        bool Send(T message);
     }
 }
