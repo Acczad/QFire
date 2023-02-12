@@ -1,6 +1,7 @@
 using QFire.Abstraction.Core;
 using QFire.Abstraction.Message;
 using QFire.Abstraction.MessageRepository;
+using System.Threading.Tasks;
 
 namespace QFire.Core.Queue
 {
@@ -12,10 +13,9 @@ namespace QFire.Core.Queue
         {
             _messageRepository = messageRepository;
         }
-
-        public bool Send(T message)
+        public async Task<bool> SendAsync(T message)
         {
-            return _messageRepository.EnQueueMessage(message);
+            return await _messageRepository.EnQueueMessageAsync(message);
         }
     }
 }
