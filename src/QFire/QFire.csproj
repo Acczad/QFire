@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>QFire</Title>
+	</PropertyGroup>
 	<PropertyGroup>
 		<Company>ICD Group</Company>
 		<Authors>SANA Development Team</Authors>
 		<owners>ICD Group</owners>
 		<PackageProjectUrl>https://github.com/acczad/QFire</PackageProjectUrl>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Acczad/QFire</RepositoryUrl>
 		<PackageTags>queue;Redis;RabbitMq;</PackageTags>
@@ -17,7 +19,6 @@
 		<Description>A simple library for creating a resilient queue.</Description>
 		<Copyright>MIT License</Copyright>
 		<PackageReleaseNotes>the initial release</PackageReleaseNotes>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\icon.png">
@@ -25,4 +26,16 @@
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MessagePack" Version="2.4.59" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\QFire.Abstraction\QFire.Abstraction.csproj" />
+	  <ProjectReference Include="..\QFire.Caching.Redis\QFire.Caching.Redis.csproj" />
+	</ItemGroup>
+
 </Project>

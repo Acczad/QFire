@@ -1,13 +1,18 @@
 using QFire.Abstraction.Message;
-using QFire.Abstraction.MessageBroker.RabbitMq;
+using QFire.Abstraction.MessageBroker;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace QFire.MessageBroker.RabbitMq
 {
-    public class RabbitMqMessageBroker : IRabbitMqMessageBroker
+    public class RabbitMqMessageBroker : IBaseMessageBroker
     {
-        public bool Send(QFireMessage message)
+        public Task<bool> SendAsync(QFireMessage message)
         {
-            throw new System.NotImplementedException();
+            var myMessage=(TestMessage) message;
+
+            Thread.Sleep(1000);
+            return Task.FromResult(true);
         }
     }
 }

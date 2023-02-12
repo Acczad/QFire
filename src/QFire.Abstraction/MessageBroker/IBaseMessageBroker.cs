@@ -1,9 +1,10 @@
 ﻿using QFire.Abstraction.Message;
+using System.Threading.Tasks;
 
 namespace QFire.Abstraction.MessageBroker
 {
     public interface IBaseMessageBroker
     {
-        bool Send(QFireMessage message);
+        Task<bool> SendAsync(QFireMessage message);
     }
 }

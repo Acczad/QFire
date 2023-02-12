@@ -1,16 +1,36 @@
-﻿using System;
-
-namespace QFire.Abstraction.Message
+﻿namespace QFire.Abstraction.Message
 {
+
     public abstract class QFireMessage
     {
-        protected QFireMessage( Priority priority)
+        protected QFireMessage(Priority priority = Priority.Low)
         {
-            MessageId = Guid.NewGuid();
-            Priority = priority;
+            Priority= priority;
         }
-        public Guid MessageId { get; }
-        public Priority Priority { get; }
+
+        public Priority GetPriority()
+        {
+            return this.Priority;
+        }
+        public bool IsHighPriority()
+        {
+            return this.Priority==Priority.High;
+        }
+        public void SetPriority(Priority priority)
+        {
+            Priority=priority;
+        }
+        public string GetId()
+        {
+            return this.MessageId;
+        }
+        public void SetId(string messageId)
+        {
+            this.MessageId=messageId;
+        }
+
+        public string MessageId { get; set; }
+        public Priority Priority { get; set; }
     }
-    
+
 }

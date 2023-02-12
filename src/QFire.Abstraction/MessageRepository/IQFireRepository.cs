@@ -1,13 +1,13 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using QFire.Abstraction.Message;
+using System.Threading.Tasks;
 
 namespace QFire.Abstraction.MessageRepository
 {
     public interface IQFireRepository<T> where T : QFireMessage
     {
-        bool EnQueueMessage(T message);
-        T DeQueueMessage();
-        
+        Task<bool> EnQueueMessageAsync(T message);
+        Task<T> DeQueueMessageAsync();
+        int GetQueueCount();
+        Task FinalizeMessageAsync(T message, bool sendStatus);
     }
 }
