@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\QFire.Abstraction\QFire.Abstraction.csproj" />
+      <ProjectReference Include="..\QFire.Core\QFire.Core.csproj" />
+      <ProjectReference Include="..\QFire.Infrastructure\QFire.Infrastructure.csproj" />
+      <ProjectReference Include="..\QFire.MessageBroker.RabbitMq\QFire.MessageBroker.RabbitMq.csproj" />
+    </ItemGroup>
+
+</Project>
