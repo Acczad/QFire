@@ -21,6 +21,16 @@ namespace QFire.Sample.Controllers
         public async Task<ActionResult> Get()
         {
 
+            Task.Run(() => { SendMessage(); });
+            Task.Run(() => { SendMessage(); });
+            Task.Run(() => { SendMessage(); });
+            Task.Run(() => { SendMessage(); });
+            return Ok();
+        }
+
+
+        private async Task SendMessage()
+        {
             for (int i = 0; i<5000; i++)
             {
                 var message = new TestMessage { MyMessage=i.ToString() };
@@ -30,8 +40,6 @@ namespace QFire.Sample.Controllers
                     message.SetPriority(Priority.Low);
                 await qFire.SendAsync(message);
             }
-
-            return Ok();
         }
     }
 }

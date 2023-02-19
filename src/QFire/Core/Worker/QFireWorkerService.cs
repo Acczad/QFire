@@ -13,13 +13,13 @@ namespace QFire.Core.Worker
     {
         private readonly IQFireRepository<T> qFireRepository;
         private readonly IQFireAnalyzer<T> qFireAnalyzer;
-        private readonly IBaseMessageBroker baseMessageBroker;
+        private readonly IQFireBaseMessageBroker baseMessageBroker;
         private readonly QFireConfiguration qFireConfiguration;
         private int retryCount = 0;
         public QFireWorkerService(
              IQFireRepository<T> qFireRepository
             , IQFireAnalyzer<T> qFireAnalyzer
-            , IBaseMessageBroker baseMessageBroker
+            , IQFireBaseMessageBroker baseMessageBroker
             , QFireConfiguration qFireConfiguration
             )
         {

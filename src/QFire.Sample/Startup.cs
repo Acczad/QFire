@@ -25,6 +25,7 @@ public class Startup
                 .SetRedisCnnString("127.0.0.1")
                 ));
 
+
         return services.BuildServiceProvider();
     }
 

@@ -25,7 +25,9 @@
 	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="MessagePack.Annotations" Version="2.4.59" />
-    <PackageReference Include="QFire.Abstraction" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QFire.Abstraction\QFire.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>
