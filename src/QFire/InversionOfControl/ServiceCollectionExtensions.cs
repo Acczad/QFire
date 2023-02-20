@@ -36,7 +36,7 @@ namespace QFire.InversionOfControl
             services.AddSingleton(typeof(IQFire<T>), typeof(QFire<T>));
             services.AddSingleton(typeof(IMessageKeyGenerator), typeof(MessageKeyGenerator));
             services.AddSingleton(typeof(IMessagePackSerializer), typeof(QFireMessagePackSerializer));
-            services.AddTransient(typeof(IBaseMessageBroker), rabbitMqImplementation);
+            services.AddTransient(typeof(IQFireBaseMessageBroker), rabbitMqImplementation);
             services.AddTransient(typeof(IQFireWorkerService), typeof(QFireWorkerService<T>));
             services.AddHostedService<QFireBackgroundMessageLoaderService<T>>();
             services.AddHostedService<QFireBackgroundCordinatorService<T>>();
