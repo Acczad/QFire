@@ -1,5 +1,6 @@
 ﻿using QFire.InversionOfControl;
 using QFire.MessageBroker.RabbitMq;
+using QFire.MessageBroker.RabbitMq.Contract;
 
 namespace QFire.WebAPI;
 
@@ -12,6 +13,7 @@ public class Startup
     public IServiceProvider ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddSingleton<IQFireRabbitMqFactory, QFireRabbitMqFactory>();
 
         services
             .ConfigureQFire<TestMessage>(typeof(RabbitMqMessageBroker),
@@ -23,6 +25,9 @@ public class Startup
                 .SetMaxWorkerRetryBeforeTerminate(3)
                 .SetMaxMessageCacheTime(24*36000)
                 .SetRedisCnnString("127.0.0.1")
+                .SetRabbitMqHost("127.0.0.1")
+                .SetRabbitMqPassword("password")
+                .SetRabbitMqUserName("username")
                 ));
 
 
