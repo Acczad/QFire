@@ -21,29 +21,36 @@ namespace QFire.InversionOfControl
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection ConfigureQFire<T>(this IServiceCollection services
-            , Type rabbitMqImplementation,
-            Action<QFireConfiguration> configActions) where T : QFireMessage
+             , Type rabbitMqImplementation
+             , Action<QFireConfiguration> configActions
+             , Type qFireRedisCacheProvider = null) where T : QFireMessage
         {
-            var configurations = new QFireConfiguration();
-            configActions(configurations);
+            
+                var configurations = new QFireConfiguration();
+                configActions(configurations);
 
-            services.AddSingleton(configurations);
-            services.AddSingleton(typeof(IQFireAnalyzer<T>), typeof(QFireAnalyzer<T>));
-            services.AddSingleton(typeof(IQFireRepository<T>), typeof(QFireMessageRepository<T>));
-            services.AddSingleton(typeof(IQFireInMemoryRepository<T>), typeof(QFireInMemoryMessageRepository<T>));
-            services.AddSingleton(typeof(IQFireInRedisRepository<T>), typeof(QFireRedisMessageRepository<T>));
-            services.AddSingleton(typeof(IQFireCache), typeof(QFireRedisCacheProvider));
-            services.AddSingleton(typeof(IQFire<T>), typeof(QFire<T>));
-            services.AddSingleton(typeof(IMessageKeyGenerator), typeof(MessageKeyGenerator));
-            services.AddSingleton(typeof(IMessagePackSerializer), typeof(QFireMessagePackSerializer));
-            services.AddTransient(typeof(IQFireBaseMessageBroker), rabbitMqImplementation);
-            services.AddTransient(typeof(IQFireWorkerService), typeof(QFireWorkerService<T>));
-            services.AddHostedService<QFireBackgroundMessageLoaderService<T>>();
-            services.AddHostedService<QFireBackgroundCordinatorService<T>>();
+                services.AddSingleton(configurations);
+                services.AddSingleton(typeof(IQFireAnalyzer<T>), typeof(QFireAnalyzer<T>));
+                services.AddSingleton(typeof(IQFireRepository<T>), typeof(QFireMessageRepository<T>));
+                services.AddSingleton(typeof(IQFireInMemoryRepository<T>), typeof(QFireInMemoryMessageRepository<T>));
+                services.AddSingleton(typeof(IQFireInRedisRepository<T>), typeof(QFireRedisMessageRepository<T>));
+                
+                if (qFireRedisCacheProvider==null)
+                    services.AddSingleton(typeof(IQFireCache), typeof(QFireRedisCacheProvider));
+                else
+                    services.AddSingleton(typeof(IQFireCache), qFireRedisCacheProvider);
 
-            return services;
+                services.AddSingleton(typeof(IQFire<T>), typeof(QFire<T>));
+                services.AddSingleton(typeof(IMessageKeyGenerator), typeof(MessageKeyGenerator));
+                services.AddSingleton(typeof(IMessagePackSerializer), typeof(QFireMessagePackSerializer));
+                services.AddTransient(typeof(IQFireBaseMessageBroker), rabbitMqImplementation);
+                services.AddTransient(typeof(IQFireWorkerService), typeof(QFireWorkerService<T>));
+                services.AddHostedService<QFireBackgroundMessageLoaderService<T>>();
+                services.AddHostedService<QFireBackgroundCordinatorService<T>>();
+
+                return services;
+            }
         }
     }
-}
 
 
