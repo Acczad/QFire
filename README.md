@@ -1,4 +1,4 @@
-![Logo of the project](./src/icon.png)
+![Logo of the project](./icon.png)
 
 # QFire &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/acczad/qfire/blob/main/LICENSE.txt)
 > Additional information or tag line
