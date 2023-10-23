@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	<PropertyGroup>
+		<Company>ICD Group</Company>
+		<Authors>SANA Development Team</Authors>
+		<owners>ICD Group</owners>
+		<PackageProjectUrl>https://github.com/acczad/QFire</PackageProjectUrl>
+		<Version>1.0.4</Version>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/Acczad/QFire</RepositoryUrl>
+		<PackageTags>queue;Redis;RabbitMq;</PackageTags>
+		<SignAssembly>False</SignAssembly>
+		<Description>A simple library for creating a resilient queue.</Description>
+		<Copyright>MIT License</Copyright>
+		<PackageReleaseNotes>the initial release</PackageReleaseNotes>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Caching.CSRedis" Version="3.8.670" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QFire.Abstraction\QFire.Abstraction.csproj" />
+  </ItemGroup>
+
+</Project>
