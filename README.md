@@ -1,14 +1,17 @@
 ![Logo of the project](./icon.png)
 
 # QFire &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/acczad/qfire/blob/main/LICENSE.txt)
-> Additional information or tag line
+> A reliable and robust library for queuing messages.
 
-A producer-consumer pattern for sending messages to MessageBroker.
-According to the pattern of the producer and consumer of this package, they send information in two phases.
-First, a message is sent by the user and it is placed in a queue inside the memory or Redis (based on the importance of the message), then a series of consumption services are automatically created and send messages depending on the capacity of the consumer's server.
-Its advantage is that the process of sending messages is very simple and fast, and if there is a problem for the Consumer server, the messages will not be lost, and after the Consumer server is re-established, the messages will be sent again.
-Each user can have their own implementation for sending method according to the contract.
-There is a sample project where you can see how to use this service.
+This is the .NET library for creating in memory queue and send it to external sources.
+Based on producer and consumer pattern This library send messages in two phases.
+First:
+A message is sent by the user, then the message is placed in a queue on the memory. (If the sent message is important, a backup copy can also be stored on Redis).
+Second:
+Depending on the needs and settings, a group of Threads will start receiving and sending messages. This system ensures that the message is sent correctly and in case of an error, the message is returned to the queue.
+Since the main stack is a **Thread-safe** queue, multiple threads can simultaneously add or remove something from it.
+Third:
+If the sending result is not successful, the message will be transferred to the queue again.
 
 ## Installing / Getting started
 
