@@ -11,7 +11,7 @@
 		<Authors>SANA Development Team</Authors>
 		<owners>ICD Group</owners>
 		<PackageProjectUrl>https://github.com/acczad/QFire</PackageProjectUrl>
-		<Version>1.0.2</Version>
+		<Version>1.0.5</Version>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/Acczad/QFire</RepositoryUrl>
 		<PackageTags>queue;Redis;RabbitMq;</PackageTags>

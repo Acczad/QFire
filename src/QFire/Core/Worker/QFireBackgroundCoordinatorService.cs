@@ -10,12 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace QFire.Core.Worker
 {
-    public class QFireBackgroundCordinatorService<T> : BackgroundService where T : QFireMessage
+    public class QFireBackgroundCoordinatorService<T> : BackgroundService where T : QFireMessage
     {
         private readonly IQFireAnalyzer<T> qFireAnalyzer;
         private readonly IServiceProvider serviceProvider;
         private readonly QFireConfiguration qFireConfiguration;
-        public QFireBackgroundCordinatorService(
+        public QFireBackgroundCoordinatorService(
             IQFireAnalyzer<T> qFireAnalyzer,
             IServiceProvider serviceProvider,
             QFireConfiguration qFireConfiguration)
@@ -34,8 +34,14 @@ namespace QFire.Core.Worker
                     if (qFireAnalyzer.IsQueueSizeIncreasing())
                     {
                         IQFireWorkerService worker = serviceProvider.GetService<IQFireWorkerService>();
-                        Task.Run(() => { worker.ConsumeAsync(); });
+                        TaskFactory taskFactory = new TaskFactory();
+                        _=taskFactory.StartNew(() =>
+                                    worker.ConsumeAsync()
+                                    , cToken
+                                    , TaskCreationOptions.LongRunning
+                                    , TaskScheduler.Default);
                     }
+
                     await Task.Delay(qFireConfiguration.MaxDeleyInWorkerCreation*1000, cToken);
                 }
             }

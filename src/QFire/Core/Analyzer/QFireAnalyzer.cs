@@ -3,6 +3,7 @@ using QFire.Abstraction.Configuration;
 using QFire.Abstraction.Message;
 using QFire.Abstraction.MessageBroker;
 using QFire.Abstraction.MessageRepository;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QFire.Core.Analyzer
@@ -12,8 +13,8 @@ namespace QFire.Core.Analyzer
         private readonly QFireConfiguration qFireConfiguration;
         private readonly IQFireRepository<T> qFireRepository;
         private readonly IQFireBaseMessageBroker messageBroker;
-        private byte CurrentWorketThreadCout;
-        private readonly object LockObject;
+        private int CurrentWorketThreadCout;
+
         public QFireAnalyzer(
             QFireConfiguration qFireConfiguration
             , IQFireRepository<T> qFireRepository
@@ -22,8 +23,6 @@ namespace QFire.Core.Analyzer
             this.qFireConfiguration=qFireConfiguration;
             this.qFireRepository=qFireRepository;
             this.messageBroker=messageBroker;
-            CurrentWorketThreadCout=0;
-            LockObject= new object();
         }
 
         public bool IsMaxWorkerThreadExceed()
@@ -33,24 +32,15 @@ namespace QFire.Core.Analyzer
         public bool IsQueueSizeIncreasing()
         {
             var currentSize = qFireRepository.GetQueueCount();
-            if (currentSize == 0)
-                return false;
-
-            return true;
+            return currentSize > 0;
         }
         public void WorkerThreadCreated()
         {
-            lock (LockObject)
-            {
-                ++CurrentWorketThreadCout;
-            }
+            Interlocked.Increment(ref CurrentWorketThreadCout);
         }
         public void WorkerThreadTerminated()
         {
-            lock (LockObject)
-            {
-                --CurrentWorketThreadCout;
-            }
+            Interlocked.Decrement(ref CurrentWorketThreadCout);
         }
 
         public async Task CheckMessageBrokerAvaiable()
