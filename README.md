@@ -1,7 +1,8 @@
 ![Logo of the project](./icon.png)
 
 # QFire &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/acczad/qfire/blob/main/LICENSE.txt)
-> A reliable and robust library for queuing messages.
+[![NuGet version (QFire)](https://img.shields.io/nuget/v/QFire.svg?style=flat-square)]([https://www.nuget.org/packages/QFire])
+> A .NET library library for queuing messages.
 
 This is the .NET library for creating in memory queue and send it to external sources,
 Based on producer and consumer pattern This library send messages in two phases.<br /><br />
@@ -16,37 +17,29 @@ Third:<br />
 If the sending result is not successful, the message will be transferred to the queue again.<br />
 
 ## Installing / Getting started
+Install nuget package :
+> NuGet\Install-Package QFire <br />
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+config QFire with this command :
 
-```shell
-commands here
+```c#
+        services
+            .ConfigureQFire<TestMessage>(typeof(RabbitMqMessageBroker),
+                option => option.WithRedis(     //use redis as message backup database
+                option =>
+                option.SetMaxWorkerThread(10)         // maximum worker threads work on message stack
+                .SetCacheAbbrivation("tst")           // cache abbrivation by multiple projects
+                .SetMaxDeleyInWorkerCreation(4)       // dealy between worker threads creations
+                .SetMaxWorkerRetryBeforeTerminate(3)  // retey count before worker thread termination
+                .SetMaxMessageCacheTime(24*36000)     // maximum message backup time in secound
+                .SetRedisCnnString("127.0.0.1")       // Redis connection string
+                .SetRabbitMqHost("127.0.0.1")         // RabbitMq connection string
+                .SetRabbitMqPassword("password")      // RabbitMq password
+                .SetRabbitMqUserName("username")      // RabbitMq username
+                ));
 ```
 
 Here you should say what actually happens when you execute the code above.
 
 ## Developing
-
-### Built With
-List main libraries, frameworks used including versions (React, Angular etc...)
-
-### Prerequisites
-What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
-
-
-
-## Versioning
-
-We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
-
-
-## Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
-
-
-## Style guide
-
-Explain your code style and show how to check it.
+**You can fork this repository and add cool feautures**
