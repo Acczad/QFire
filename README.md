@@ -93,5 +93,12 @@ public class RabbitMqMessageBroker : IQFireBaseMessageBroker
     }
 }
 ```
+## Purpose / Benefit
+In scenarios where we work with a large volume of messages, we need a mechanism for queue management. for example
+Send emails
+Send text messages
+Save logs
+Sometimes it is not possible to use message brokers like Rabbit MQ, so you can use this library to manage high load of messages,
+and also this library can control the volume of the load sent to Message Broker and keep unnecessary messages on the memory and send them according to the conditions.
 ## Developing
 **You can fork this repository and add cool feautures**
