@@ -1,7 +1,7 @@
 ![Logo of the project](./icon.png)
 
 # QFire &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/acczad/qfire/blob/main/LICENSE.txt) [![NuGet version (QFire)](https://img.shields.io/nuget/v/QFire.svg?style=flat-square)]([https://www.nuget.org/packages/QFire])
-> A .NET library library for queuing messages.
+> A .NET library for queuing messages.
 <br />
 This is the .NET library for creating in memory queue and send it to external sources,
 Based on producer and consumer pattern This library send messages in two phases.<br /><br />
