@@ -1,20 +1,27 @@
 ![Logo of the project](./icon.png)
 
 # QFire &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/acczad/qfire/blob/main/LICENSE.txt) [![NuGet version (QFire)](https://img.shields.io/nuget/v/QFire.svg?style=flat-square)]([https://www.nuget.org/packages/QFire])
-> A .NET library library for queuing messages.
+> QFire is the .NET library for creating in job-queuing and send it to external sources, based on producer and consumer pattern.
 <br />
-This is the .NET library for creating in memory queue and send it to external sources,
-Based on producer and consumer pattern This library send messages in two phases.<br /><br />
+The purpose of this library is to manage queues efficiently in situations involving a high volume of messages, such as sending emails, text messages, or saving logs. It serves as a mechanism for queue management, particularly useful when using message brokers is not feasible. The library helps control message loads, keeping unnecessary messages in memory and sending them based on consumer ability.
 
-**First:** <br />
-A message is sent by the user, then the message is placed in a queue on the memory. (If the sent message is important, a backup copy can also be stored on Redis).
+Even more, if Redis is used as a queue, the producer and consumer can be completely separated from each other and several consumers can be used in the form of microservices. But this library can be used in any desired way.
+<br />
+In this library, queuing operations are performed in the following steps:
 
-**Second:<br />**
-Depending on the needs and settings, a group of worker threads will start receiving and sending messages. This system ensures that the message is sent correctly and in case of an error, the message is returned to the queue.
-Since the main stack is a **Thread-Safe** queue, multiple threads can simultaneously add or remove something from it.
+<br />
 
-**Third:<br />**
-If the sending result is not successful, the message will be transferred to the queue again.<br />
+1) A message is created by the user, then the message is placed in a queue on the memory, If the sent message is important stored on Redis. 
+(Logs may not be valuable messages that can be queued on memory. By accepting the risk that this information may be lost, it causes less I/O operations to occur and helps the system's efficiency.)
+<br />
+
+2) Depending on the load and settings, a group of worker threads will start receiving and consuming messages. This system ensures that the message is consume correctly and in case of an error, the message is returned to the queue. If the queue is empty, the worker threads are automatically shut down and start working when the queue is refilled. The number of these worker threads can be adjusted in the initial settings.
+One of the advantages of this library is that you design the implementation and the logic you have to consume the message yourself. This library is only responsible for breaking the load for you.
+
+<br />
+
+3) If the sending result is not successful, the message will be transferred to the queue again.
+<br />
 
 ## Installing / Getting started
 Install nuget package :
